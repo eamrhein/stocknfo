@@ -1,0 +1,62 @@
+.searchbar {
+    width: 40vw;
+    position: relative;
+    left: 13.8vw;
+    background-color: white;
+    border-radius: 3px;
+    color: black;
+}
+
+.search-results {
+    font-weight: bold;
+}
+
+.search-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 20;
+}
+.search-item > li {
+    margin-right: 10px;
+}
+.search-item:hover {
+    cursor: pointer;
+    background: grey;
+}
+
+.searchbar .focus {
+    box-shadow: 0 0 4px 1px rgba(0,0,0,0.01), 0 3px 24px rgba(48,51,51,0.09);
+}
+
+.searchbar-svg {
+    background-color: grey;
+    mask-image: url('magglass.svg');
+    position: absolute;
+    margin: 10px;
+    margin-left: 20px;
+    height: 20px;
+    width: 20px;
+}
+
+.searchbar-svg .focus {
+    color: black;
+    background: transparent
+}
+
+.search-bar-input {
+    width: 100%;
+    font-size: medium;
+    padding: 12px 0px;
+    padding-left: 48px;
+    background: transparent;
+    color: black;
+    border: 1px solid black; 
+}
+
+.search-bar-input .focus {
+    border: 1px solid transparent;
+    outline-color: transparent;
+    outline-style: none;
+}

@@ -23,7 +23,7 @@ const Stock = () => {
   return (
     <div className="StockChart">
       <div className="chart-header">
-        <h1>Balance</h1>
+        <h2>Balance</h2>
         <h2>Odometer</h2>
         <h3>Net</h3>
       </div>

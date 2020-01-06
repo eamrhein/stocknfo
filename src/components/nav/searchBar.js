@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-
+import React, { useState } from "react";
+import "./searchBar.css";
 const SearchBar = ({ allStocks }) => {
   const [focused, setFocused] = useState(true);
   const [input, setInput] = useState("");
@@ -21,6 +20,40 @@ const SearchBar = ({ allStocks }) => {
     return match;
   };
 
+  const focusSearch = e => {
+    const searchBar = document.querySelector(".searchbar");
+    const searchBarInput = document.querySelector(".search-bar-input");
+    const searchBarSVG = document.querySelector(".searchbar-svg");
+    if (searchBar) {
+      searchBar.classList.add("focus");
+    }
+    if (searchBarInput) {
+      searchBarInput.classList.add("focus");
+    }
+    if (searchBarSVG) {
+      searchBarSVG.classList.add("focus");
+    }
+    if (e.type === "focus") {
+      setFocused(true);
+    }
+  };
+  const blurSearch = e => {
+    const searchBar = document.querySelector(".searchbar");
+    const searchBarInput = document.querySelector(".search-bar-input");
+    const searchBarSVG = document.querySelector(".searchbar-svg");
+    if (searchBar) {
+      searchBar.classList.remove("focus");
+    }
+    if (searchBarInput) {
+      searchBarInput.classList.remove("focus");
+    }
+    if (searchBarSVG) {
+      searchBarSVG.classList.remove("focus");
+    }
+    if (e.type === "blur") {
+      setFocused(false);
+    }
+  };
   const filterStocks = () => {
     const results = [];
     const maxSize = 6;
@@ -40,9 +73,11 @@ const SearchBar = ({ allStocks }) => {
     if (input.length > 0 && focused === true) {
       return (
         <ul className="search-results">
+          <h3>Stocks</h3>
           {filterStocks().map((stock, i) => (
             <li key={i} className="search-item">
-              {stock.name} {stock.symbol}
+              <li>{stock.name}</li>
+              <li>{stock.symbol}</li>
             </li>
           ))}
         </ul>
@@ -51,11 +86,17 @@ const SearchBar = ({ allStocks }) => {
   };
 
   return (
-    <div className="searchbar">
-      o-
+    <div
+      className="searchbar"
+      onMouseEnter={focusSearch}
+      onMouseLeave={blurSearch}
+      onFocus={focusSearch}
+      onBlur={blurSearch}
+    >
+      <div className="searchbar-svg"></div>
       <input
         type="text"
-        className="searcbar-input"
+        className="search-bar-input"
         placeholder="Search"
         onChange={e => setInput(e.target.value)}
       />
