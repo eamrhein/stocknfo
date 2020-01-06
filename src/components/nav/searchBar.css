@@ -1,14 +1,15 @@
 .searchbar {
-    width: 40vw;
     position: relative;
-    left: 13.8vw;
+    width: 30vw;
     background-color: white;
     border-radius: 3px;
+    right: 100px;
     color: black;
 }
 
 .search-results {
     font-weight: bold;
+    position: absolute;
 }
 
 .search-item {
@@ -46,9 +47,9 @@
 }
 
 .search-bar-input {
-    width: 100%;
+    min-width: 100%;
     font-size: medium;
-    padding: 12px 0px;
+    padding: 14px 0px;
     padding-left: 48px;
     background: transparent;
     color: black;

@@ -11,7 +11,7 @@ const Nav = ({ allStocks, loadStocks }) => {
     <nav className="navbar">
       <ul>
         <li>
-          <h1>InvestmentSpy</h1>
+          <h1>Investment<span className="magenta">Spy</span></h1>
         </li>
         <SearchBar allStocks={allStocks} />
       </ul>

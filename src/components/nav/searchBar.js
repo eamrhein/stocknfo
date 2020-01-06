@@ -95,7 +95,7 @@ const SearchBar = ({ allStocks }) => {
     >
       <div className="searchbar-svg"></div>
       <input
-        type="text"
+        type="search"
         className="search-bar-input"
         placeholder="Search"
         onChange={e => setInput(e.target.value)}

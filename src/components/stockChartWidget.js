@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LineChart, Line, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 const RED = "#EB5333";
 const GREEN = "#67CF9A";
@@ -30,7 +30,7 @@ const Stock = () => {
       {chartState.length !== 0 ? (
         <div className="chart-wrapper">{renderLineChart()}</div>
       ) : (
-        <div className="chart-Wraper">Hello</div>
+        <div className="chart-Wraper"><h1>Dang it bobby</h1></div>
       )}
     </div>
   );

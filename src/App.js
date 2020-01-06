@@ -10,6 +10,9 @@ const App = ({ store }) => (
     <div className="App">
       <Nav />
       <Main />
+      <footer>
+        <ul>Portfolio</ul>
+      </footer>
     </div>
   </Provider>
 );
