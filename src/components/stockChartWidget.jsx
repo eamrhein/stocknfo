@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   LineChart,
   Line,
@@ -71,7 +72,8 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
       };
       const renderChange = () => {
         let rangeStr = "";
-        let diff, percent;
+        let diff;
+        let percent;
         switch (range) {
           case "1D":
             [diff, percent] = parseChange("changePercent");
@@ -100,7 +102,8 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
         const changeComp = (
           <ChangeStyle>
             <span>
-              {sign}${diff} ({percent}%)
+              {sign}${diff} ({percent}
+              %)
             </span>
             <span>{rangeStr}</span>
           </ChangeStyle>
@@ -140,16 +143,16 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
         break;
     }
   };
-  let renderLineChart = () => {
+  const renderLineChart = () => {
     return (
       <ResponsiveContainer width="100%" height={400}>
         <LineChart data={chartState} width={400} height={400}>
           <CartesianGrid strokeDasharray="3 3" />
-          <YAxis domain={["dataMin", "dataMax"]} hide={true} />
-          <XAxis hide={true} dataKey="label" />
+          <YAxis domain={["dataMin", "dataMax"]} hide />
+          <XAxis hide dataKey="label" />
           <Legend />
           <Line
-            connectNulls={true}
+            connectNulls
             name="USD $"
             type="monotone"
             dot={false}
@@ -161,7 +164,7 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
             separator=""
             offset={-40}
             position={{ y: -15 }}
-            isAnimationActive={true}
+            isAnimationActive
           />
         </LineChart>
       </ResponsiveContainer>
@@ -194,14 +197,12 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
           5Y
         </RangeBtn>
       </RangeGroup>
-      {stocks[current] ? (
-        stocks[current]["company"] ? (
-          <About stock={stocks[current]} />
-        ) : (
-          "...loading"
-        )
-      ) : null}
+      {stocks[current] ? <About stock={stocks[current]} /> : "...loading"}
     </StockWrapper>
   );
+};
+Stock.propTypes = {
+  current: PropTypes.string.isRequired,
+  stocks: PropTypes.any.isRequired
 };
 export default Stock;
