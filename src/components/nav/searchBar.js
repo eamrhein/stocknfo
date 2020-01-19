@@ -84,40 +84,6 @@ const SearchBar = props => {
     return match;
   };
 
-  const focusSearch = e => {
-    const searchBar = document.querySelector(".searchbar");
-    const searchBarInput = document.querySelector(".search-bar-input");
-    const searchBarSVG = document.querySelector(".searchbar-svg");
-    if (searchBar) {
-      searchBar.classList.add("focus");
-    }
-    if (searchBarInput) {
-      searchBarInput.classList.add("focus");
-    }
-    if (searchBarSVG) {
-      searchBarSVG.classList.add("focus");
-    }
-    if (e.type === "focus") {
-      setFocused(true);
-    }
-  };
-  const blurSearch = e => {
-    const searchBar = document.querySelector(".searchbar");
-    const searchBarInput = document.querySelector(".search-bar-input");
-    const searchBarSVG = document.querySelector(".searchbar-svg");
-    if (searchBar) {
-      searchBar.classList.remove("focus");
-    }
-    if (searchBarInput) {
-      searchBarInput.classList.remove("focus");
-    }
-    if (searchBarSVG) {
-      searchBarSVG.classList.remove("focus");
-    }
-    if (e.type === "blur") {
-      setFocused(false);
-    }
-  };
   const filterStocks = () => {
     const results = [];
     const maxSize = 6;
