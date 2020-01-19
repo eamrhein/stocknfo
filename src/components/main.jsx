@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import StockPage from './stockPage';
 
@@ -17,9 +17,8 @@ const Main = () => (
   <MainWrapper>
     <Title>Stock Research</Title>
     <Switch>
-      <Route path="/stocks/:sym" component={StockPage} />
-      <Route path="/stocks/" component={StockPage} />
-      <Redirect to="/stocks/" />
+      <Route path={`${process.env.PUBLIC_URL}/:sym`} component={StockPage} />
+      <Route path={`${process.env.PUBLIC_URL}/`} component={StockPage} />
     </Switch>
   </MainWrapper>
 );
