@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import About from "./newsFeedWidget";
 import {
   LineChart,
   Line,
@@ -11,6 +10,8 @@ import {
   Legend
 } from "recharts";
 import styled from "styled-components";
+import About from "./newsFeedWidget";
+
 const StockWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,11 +49,12 @@ const RangeBtn = styled.div`
 `;
 
 const Stock = ({ stocks, fetchStockChart, current }) => {
-  let [chartState, setChartState] = useState([]);
-  let [company, setCompany] = useState("");
-  let [price, setPrice] = useState("");
-  let [range, setRange] = useState("5Y");
-  let [change, setChange] = useState("");
+  const [chartState, setChartState] = useState([]);
+  const [company, setCompany] = useState("");
+  const [price, setPrice] = useState("");
+  const [range, setRange] = useState("5Y");
+  const [change, setChange] = useState("");
+
   useEffect(() => {
     fetchStockChart(current, range);
   }, [fetchStockChart, range, current]);
@@ -60,14 +62,14 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
   useEffect(() => {
     if (stocks[current]) {
       const parseChange = method => {
-        let currentPrice = parseFloat(stocks[current].latestPrice);
+        const currentPrice = parseFloat(stocks[current].latestPrice);
         let percent = parseFloat(stocks[current][method]);
-        let prevPrice = currentPrice - currentPrice * percent;
+        const prevPrice = currentPrice - currentPrice * percent;
         percent = (percent * 100).toFixed(2);
-        let diff = (currentPrice - prevPrice).toFixed(2);
+        const diff = (currentPrice - prevPrice).toFixed(2);
         return [diff, percent];
       };
-      function renderChange() {
+      const renderChange = () => {
         let rangeStr = "";
         let diff, percent;
         switch (range) {
@@ -94,8 +96,8 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
           default:
             break;
         }
-        let sign = Math.sign(diff) === 1 ? "+" : null;
-        let changeComp = (
+        const sign = Math.sign(diff) === 1 ? "+" : null;
+        const changeComp = (
           <ChangeStyle>
             <span>
               {sign}${diff} ({percent}%)
@@ -104,7 +106,7 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
           </ChangeStyle>
         );
         setChange(changeComp);
-      }
+      };
       setChartState(stocks[current].chart);
       setCompany(stocks[current].company.securityName);
       setPrice(stocks[current].latestPrice.toFixed(2));
@@ -112,7 +114,7 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
     }
   }, [stocks, current, range]);
   const handleRange = e => {
-    let text = e.target.innerText;
+    const text = e.target.innerText;
     switch (text) {
       case "1D":
         setRange("1D");
