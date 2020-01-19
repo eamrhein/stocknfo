@@ -7,7 +7,7 @@ import Main from './components/main';
 const App = ({ store }) => (
   <Provider store={store}>
     <div className="App">
-      <Router basename="stockresearch">
+      <Router basename={process.env.PUBLIC_URL}>
         <Nav />
         <Main />
       </Router>

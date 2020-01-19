@@ -17,8 +17,8 @@ const Main = () => (
   <MainWrapper>
     <Title>Stock Research</Title>
     <Switch>
-      <Route path={`${process.env.PUBLIC_URL}/:sym`} component={StockPage} />
-      <Route path={`${process.env.PUBLIC_URL}/`} component={StockPage} />
+      <Route path="/:sym" component={StockPage} />
+      <Route path="/" component={StockPage} />
     </Switch>
   </MainWrapper>
 );
