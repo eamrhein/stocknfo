@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5809761e3872cae0b41c7aa0b3520caf",
+    "revision": "1c7449220e1839608aadaecbb1db1c99",
     "url": "/stockresearch/index.html"
   },
   {
-    "revision": "a6248eda8455094ef652",
+    "revision": "b0c08f267ddb73b2800f",
     "url": "/stockresearch/static/css/main.f4d621d9.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/stockresearch/static/js/2.fd8c2fb1.chunk.js.LICENSE"
   },
   {
-    "revision": "a6248eda8455094ef652",
-    "url": "/stockresearch/static/js/main.7898d594.chunk.js"
+    "revision": "b0c08f267ddb73b2800f",
+    "url": "/stockresearch/static/js/main.00853f66.chunk.js"
   },
   {
     "revision": "e905e177f9d20aae9ac0",
