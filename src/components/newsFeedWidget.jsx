@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const CompanInfo = styled.div`
   margin-top: 10px;
@@ -22,7 +23,7 @@ const Title2 = styled.h2`
   font-size: 20pt;
   margin: 0.5rem;
 `;
-const Link = styled.a`
+const Text = styled.span`
   cursor: pointer;
   color: #7b1fa2;
   font-weight: 600;
@@ -48,7 +49,7 @@ const Tag = styled.span`
   border-radius: 17px;
 `;
 const About = ({ stock }) => {
-  let { company } = stock;
+  const { company } = stock;
   const [expand, setExpand] = useState(false);
   return (
     <CompanInfo>
@@ -56,25 +57,25 @@ const About = ({ stock }) => {
       <Desc>
         {expand
           ? company.description
-          : company.description.slice(0, 350) + "... "}
-        <Link onClick={() => setExpand(!expand)}>
-          {expand ? "read less" : "read more"}
-        </Link>
+          : `${company.description.slice(0, 350)}... `}
+        <Text onClick={() => setExpand(!expand)}>
+          {expand ? 'read less' : 'read more'}
+        </Text>
       </Desc>
       <table>
         <tbody>
           <tr>
             <Cell>
               <Heading>CEO</Heading>
-              <div>{company.CEO || "n/a"}</div>
+              <div>{company.CEO || 'n/a'}</div>
             </Cell>
             <Cell>
               <Heading>Employees</Heading>
-              <div>{company.employees || "n/a"}</div>
+              <div>{company.employees || 'n/a'}</div>
             </Cell>
             <Cell>
               <Heading>Location</Heading>
-              <div>{company.city + ", " + company.state || "n/a"}</div>
+              <div>{`${company.city}, ${company.state}` || 'n/a'}</div>
             </Cell>
             <Cell>
               <Heading>Website</Heading>
@@ -86,30 +87,48 @@ const About = ({ stock }) => {
           <tr>
             <Cell>
               <Heading>Market Cap</Heading>
-              <div>{stock.marketCap || "n/a"}</div>
+              <div>{stock.marketCap || 'n/a'}</div>
             </Cell>
             <Cell>
               <Heading>Price-Earnings Ratio</Heading>
-              <div>{stock.peRatio || "n/a"}</div>
+              <div>{stock.peRatio || 'n/a'}</div>
             </Cell>
             <Cell>
               <Heading>Dividend Yield</Heading>
-              <div>{stock.dividendYield || "n/a"}</div>
+              <div>{stock.dividendYield || 'n/a'}</div>
             </Cell>
             <Cell>
               <Heading>Volume</Heading>
-              <div>{stock.volume || "n/a"}</div>
+              <div>{stock.volume || 'n/a'}</div>
             </Cell>
           </tr>
         </tbody>
       </table>
       <Title2>Investment Type</Title2>
       <Tags>
-        {company.tags.map((tag, id) => (
-          <Tag key={id}>{tag}</Tag>
+        {company.tags.map((tag) => (
+          <Tag>{tag}</Tag>
         ))}
       </Tags>
     </CompanInfo>
   );
+};
+
+About.defaultProps = {
+  stock: {
+    company: {},
+  },
+};
+About.propTypes = {
+  stock: {
+    company: {
+      CEO: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      employees: PropTypes.string.isRequired,
+      city: PropTypes.string.isRequired,
+      state: PropTypes.string.isRequired,
+      website: PropTypes.string.isRequired,
+    },
+  },
 };
 export default About;

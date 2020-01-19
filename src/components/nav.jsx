@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
-import SearchBar from "./nav/searchBar";
-import { connect } from "react-redux";
-import { receiveStocks } from "../actions/stock_actions";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
+import { receiveStocks } from '../actions/stock_actions';
+import SearchBar from './nav/searchBar';
 
 const Navbar = styled.nav`
   margin-left: 30vw;
@@ -31,10 +32,19 @@ const Nav = ({ allStocks, loadStocks }) => {
     </Navbar>
   );
 };
-const mSTP = state => ({
-  allStocks: state.entities.stocks.allStocks
+
+Nav.defaultProps = {
+  allStocks: [],
+};
+Nav.propTypes = {
+  allStocks: PropTypes.array.length >= 0,
+  loadStocks: PropTypes.func.isRequired,
+};
+
+const mSTP = (state) => ({
+  allStocks: state.entities.stocks.allStocks,
 });
-const mDTP = dispatch => ({
-  loadStocks: () => dispatch(receiveStocks())
+const mDTP = (dispatch) => ({
+  loadStocks: () => dispatch(receiveStocks()),
 });
 export default connect(mSTP, mDTP)(Nav);

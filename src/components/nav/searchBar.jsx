@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { withRouter } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
 
 const Search = styled.div`
   display: flex;
@@ -62,26 +63,28 @@ const Label = styled.div`
 const Name = styled.span`
   display: table-cell;
 `;
-const SearchBar = props => {
-  let { allStocks, history } = props;
+const SearchBar = (props) => {
+  const { allStocks, history } = props;
   const [cursor, setCursor] = useState(0);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
 
-  const match = stock => {
-    let match = false;
-    const _match = field => {
-      let testInput = input.toLowerCase();
-      if (typeof field === "string") {
-        field = field.toLowerCase();
+  const match = (stock) => {
+    let matchBool = false;
+    const matchFunc = (field) => {
+      let fstring = '';
+      const testInput = input.toLowerCase();
+      if (typeof field === 'string') {
+        fstring = field.toLowerCase();
       }
       return (
-        testInput.length <= field.length &&
-        field.slice(0, testInput.length) === testInput
+        testInput.length <= field.length
+        && fstring.slice(0, testInput.length) === testInput
       );
     };
-    if (stock.name && (_match(stock.name) || _match(stock.symbol)))
-      match = true;
-    return match;
+    if (stock.name && (matchFunc(stock.name) || matchFunc(stock.symbol))) {
+      matchBool = true;
+    }
+    return matchBool;
   };
 
   const filterStocks = () => {
@@ -93,13 +96,13 @@ const SearchBar = props => {
         if (match(allStocks[i])) {
           results.push(allStocks[i]);
         }
-        i++;
+        i += 1;
       }
     }
     return results;
   };
-  const handleClick = symbol => {
-    setInput("");
+  const handleClick = (symbol) => {
+    setInput('');
     history.push(`/stocks/${symbol}`);
   };
   const renderResults = () => {
@@ -109,33 +112,34 @@ const SearchBar = props => {
           <Label>Stock</Label>
           {filterStocks().map((stock, i) => (
             <Result
-              key={i}
               onClick={() => handleClick(stock.symbol)}
-              className={cursor === i ? "active" : null}
+              className={cursor === i ? 'active' : null}
             >
               <Symbol className="result">{stock.symbol}</Symbol>
               <Name>
                 {stock.name
-                  .split(" ")
+                  .split(' ')
                   .slice(0, 3)
-                  .join(" ")}
+                  .join(' ')}
               </Name>
             </Result>
           ))}
         </Results>
       );
     }
+    return null;
   };
-  const handleKeyDown = e => {
+  const handleKeyDown = (e) => {
     if (e.keyCode === 38 && cursor > 0) {
       setCursor(cursor - 1);
     } else if (e.keyCode === 40 && cursor < allStocks.length) {
       setCursor(cursor + 1);
     }
     if (e.keyCode === 13) {
-      let elements = [...document.getElementsByClassName("result")];
-      let symbol = elements[cursor].innerHTML;
-      setInput("");
+      const elements = [...document.getElementsByClassName('result')];
+      const symbol = elements[cursor].innerHTML;
+      setInput('');
+
       history.push(`/stocks/${symbol}`);
     }
   };
@@ -149,11 +153,22 @@ const SearchBar = props => {
           placeholder="  Search"
           value={input}
           onKeyDown={handleKeyDown}
-          onChange={e => setInput(e.target.value)}
+          onChange={(e) => setInput(e.target.value)}
         />
       </Search>
       {renderResults()}
     </>
   );
 };
+SearchBar.defaultProps = {
+  allStocks: [],
+  history: {},
+};
+SearchBar.propTypes = {
+  allStocks: PropTypes.array.length >= 0,
+  history: {
+    push: PropTypes.func.isRequired,
+  },
+};
+
 export default withRouter(SearchBar);

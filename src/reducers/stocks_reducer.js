@@ -1,6 +1,6 @@
-import { RECEIVE_STOCKS, RECEIVE_STOCK_CHART } from "../actions/stock_actions";
-import NSYE from "../util/nyse.json";
-import NASDAQ from "../util/nasdaq.json";
+import { RECEIVE_STOCKS, RECEIVE_STOCK_CHART } from '../actions/stock_actions';
+import NSYE from '../util/nyse.json';
+import NASDAQ from '../util/nasdaq.json';
 
 const stockList = NSYE.concat(NASDAQ);
 
@@ -11,7 +11,7 @@ const stockReducer = (state = {}, action) => {
     case RECEIVE_STOCKS:
       return {
         ...state,
-        allStocks: stockList
+        allStocks: stockList,
       };
     case RECEIVE_STOCK_CHART:
       data = {
@@ -19,11 +19,11 @@ const stockReducer = (state = {}, action) => {
         ...action.chartData.stats,
         company: action.chartData.company,
         chart: action.chartData.chart,
-        intraday: action.chartData.intraDay
+        intraday: action.chartData.intraDay,
       };
       return {
         ...state,
-        [action.ticker]: data
+        [action.ticker]: data,
       };
 
     default:
