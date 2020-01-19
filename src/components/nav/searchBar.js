@@ -100,7 +100,7 @@ const SearchBar = props => {
   };
   const handleClick = symbol => {
     setInput("");
-    history.push(`${symbol}`);
+    history.push(`/stocks/${symbol}`);
   };
   const renderResults = () => {
     if (input.length > 0) {
@@ -136,7 +136,7 @@ const SearchBar = props => {
       let elements = [...document.getElementsByClassName("result")];
       let symbol = elements[cursor].innerHTML;
       setInput("");
-      history.push(`${symbol}`);
+      history.push(`/stocks/${symbol}`);
     }
   };
   return (

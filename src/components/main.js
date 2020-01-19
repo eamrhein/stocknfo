@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Stock from "./stockChartContainer";
 import StockPage from "./stockPage";
 import styled from "styled-components";
@@ -19,8 +19,9 @@ const Main = () => {
     <MainWrapper>
       <Title>Stock Research</Title>
       <Switch>
-        <Route exact path="/:sym" component={StockPage} />
-        <Route path="/" component={Stock} />
+        <Route path="/stocks/:sym" exact component={StockPage} />
+        <Route path="/stocks/" component={Stock} />
+        <Redirect to="/stocks/" />
       </Switch>
     </MainWrapper>
   );
