@@ -20,7 +20,7 @@ const Main = () => {
       <Title>Stock Research</Title>
       <Switch>
         <Route path="/stockresearch/stocks/:sym" component={StockPage} />
-        <Route path="/stockresearch/" component={Stock} />
+        <Route path="/" component={Stock} />
       </Switch>
     </MainWrapper>
   );
