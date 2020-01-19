@@ -113,7 +113,7 @@ const SearchBar = props => {
               onClick={() => handleClick(stock.symbol)}
               className={cursor === i ? "active" : null}
             >
-              <Symbol>{stock.symbol}</Symbol>
+              <Symbol className="result">{stock.symbol}</Symbol>
               <Name>
                 {stock.name
                   .split(" ")
@@ -133,7 +133,10 @@ const SearchBar = props => {
       setCursor(cursor + 1);
     }
     if (e.keyCode === 13) {
-      history.push(`/stocks/${allStocks[cursor]}[0]`);
+      let elements = [...document.getElementsByClassName("result")];
+      let symbol = elements[cursor].innerHTML;
+      setInput("");
+      history.push(`/stocks/${symbol}`);
     }
   };
   return (
