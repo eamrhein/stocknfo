@@ -1,7 +1,4 @@
-import {
-  RECEIVE_STOCKS,
-  RECEIVE_STOCK_CHART,
-} from "../actions/stock_actions";
+import { RECEIVE_STOCKS, RECEIVE_STOCK_CHART } from "../actions/stock_actions";
 import NSYE from "../util/nyse.json";
 import NASDAQ from "../util/nasdaq.json";
 

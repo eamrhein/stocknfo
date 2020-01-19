@@ -1,12 +1,8 @@
-import { combineReducers } from 'redux'
-import stockReducer from './stocks_reducer'
+import { combineReducers } from "redux";
+import stockReducer from "./stocks_reducer";
 
 const entitiesReducer = combineReducers({
-    stocks: stockReducer
-})
-// stocks,
-// news
-// watches
+  stocks: stockReducer
+});
 
 export default entitiesReducer;
-
