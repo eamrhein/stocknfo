@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/stockresearch/static/css/main.f4d621d9.chunk.css",
+    "main.js": "/stockresearch/static/js/main.c7c2b074.chunk.js",
+    "main.js.map": "/stockresearch/static/js/main.c7c2b074.chunk.js.map",
+    "runtime-main.js": "/stockresearch/static/js/runtime-main.638360e1.js",
+    "runtime-main.js.map": "/stockresearch/static/js/runtime-main.638360e1.js.map",
+    "static/js/2.e702059e.chunk.js": "/stockresearch/static/js/2.e702059e.chunk.js",
+    "static/js/2.e702059e.chunk.js.map": "/stockresearch/static/js/2.e702059e.chunk.js.map",
+    "index.html": "/stockresearch/index.html",
+    "precache-manifest.65dba237efe34d82228d933009c3fcc1.js": "/stockresearch/precache-manifest.65dba237efe34d82228d933009c3fcc1.js",
+    "service-worker.js": "/stockresearch/service-worker.js",
+    "static/css/main.f4d621d9.chunk.css.map": "/stockresearch/static/css/main.f4d621d9.chunk.css.map",
+    "static/js/2.e702059e.chunk.js.LICENSE": "/stockresearch/static/js/2.e702059e.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.638360e1.js",
+    "static/js/2.e702059e.chunk.js",
+    "static/css/main.f4d621d9.chunk.css",
+    "static/js/main.c7c2b074.chunk.js"
+  ]
+}
