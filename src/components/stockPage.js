@@ -5,7 +5,7 @@ import StockChart from './stockChartWidget';
 
 const mapSTP = (state, ownProps) => ({
   stocks: state.entities.stocks,
-  current: ownProps.match.params.sym,
+  current: ownProps.match.params.sym || 'MSFT',
   ownProps,
 });
 
