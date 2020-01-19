@@ -1,13 +1,28 @@
 import React from "react";
-import Stock from "./stockChartWidget";
-import News from "./newsFeedWidget";
+import { Route, Switch } from "react-router-dom";
+import Stock from "./stockChartContainer";
+import StockPage from "./stockPage";
+import styled from "styled-components";
 
+const Title = styled.h1`
+  margin: 1rem;
+  font-size: 2rem;
+  font-weight: bolder;
+`;
+const MainWrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const Main = () => {
   return (
-    <main className="main">
-      <Stock />
-      <News />
-    </main>
+    <MainWrapper>
+      <Title>Stock Research</Title>
+      <Switch>
+        <Route path="/stocks/:sym" component={StockPage} />
+        <Route path="/" component={Stock} />
+      </Switch>
+    </MainWrapper>
   );
 };
 export default Main;
