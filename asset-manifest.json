@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/stockresearch/static/css/main.f4d621d9.chunk.css",
-    "main.js": "/stockresearch/static/js/main.f6ed9366.chunk.js",
-    "main.js.map": "/stockresearch/static/js/main.f6ed9366.chunk.js.map",
+    "main.js": "/stockresearch/static/js/main.7898d594.chunk.js",
+    "main.js.map": "/stockresearch/static/js/main.7898d594.chunk.js.map",
     "runtime-main.js": "/stockresearch/static/js/runtime-main.638360e1.js",
     "runtime-main.js.map": "/stockresearch/static/js/runtime-main.638360e1.js.map",
     "static/js/2.fd8c2fb1.chunk.js": "/stockresearch/static/js/2.fd8c2fb1.chunk.js",
     "static/js/2.fd8c2fb1.chunk.js.map": "/stockresearch/static/js/2.fd8c2fb1.chunk.js.map",
     "index.html": "/stockresearch/index.html",
-    "precache-manifest.da87c3166a23a42f4d7e6e95e323d1c8.js": "/stockresearch/precache-manifest.da87c3166a23a42f4d7e6e95e323d1c8.js",
+    "precache-manifest.6697a8e34c4755ca848d6f683fc0c0c6.js": "/stockresearch/precache-manifest.6697a8e34c4755ca848d6f683fc0c0c6.js",
     "service-worker.js": "/stockresearch/service-worker.js",
     "static/css/main.f4d621d9.chunk.css.map": "/stockresearch/static/css/main.f4d621d9.chunk.css.map",
     "static/js/2.fd8c2fb1.chunk.js.LICENSE": "/stockresearch/static/js/2.fd8c2fb1.chunk.js.LICENSE"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.638360e1.js",
     "static/js/2.fd8c2fb1.chunk.js",
     "static/css/main.f4d621d9.chunk.css",
-    "static/js/main.f6ed9366.chunk.js"
+    "static/js/main.7898d594.chunk.js"
   ]
 }
