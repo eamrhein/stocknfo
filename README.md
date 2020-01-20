@@ -7,7 +7,7 @@
 ![stockresearch](https://user-images.githubusercontent.com/1903468/72707649-c6918900-3b15-11ea-969e-d6aaf87557da.png)
 
 ## Technologies 
-### + Frontend Components: React, Rechart, 
+### + Frontend Components: React, Rechart 
 ### + Frontend State: Redux
 
 
