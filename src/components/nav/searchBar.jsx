@@ -10,8 +10,9 @@ const Search = styled.div`
   align-items: center;
   margin: 8px;
   border-radius: 5px;
+  background-color: #FAFAFA;
   color: #cbcbcb;
-  border: 1px solid #cbcbcb;
+  border: 1px solid black;
   padding: 0 24px 0 3px;
   width: 100%;
   input {
@@ -23,6 +24,7 @@ const Search = styled.div`
   }
   .fa-search {
     font-size: 14pt;
+    color: #444444;
   }
 `;
 const Results = styled.div`

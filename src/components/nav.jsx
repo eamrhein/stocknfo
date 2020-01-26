@@ -8,16 +8,25 @@ import { receiveStocks } from '../actions/stock_actions';
 import SearchBar from './nav/searchBar';
 
 const Navbar = styled.nav`
-  margin-left: 30vw;
-  margin-right: 30vw;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
+  background-color: #555555;
+  border-bottom: 1px solid black;
 `;
 const Logo = styled.i`
+  background-color: #fafafa;
+  padding: 6px;
+  border: 1px solid black;
+  border-radius: 3px;
   margin-right: 10px;
   font-size: 24pt;
   color: #7b1fa2;
+`;
+
+const NavItems = styled.div`
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const Nav = ({ allStocks, loadStocks }) => {
   useEffect(() => {
@@ -25,10 +34,12 @@ const Nav = ({ allStocks, loadStocks }) => {
   }, [loadStocks]);
   return (
     <Navbar>
-      <Logo>
-        <FontAwesomeIcon icon={faPencilAlt} />
-      </Logo>
-      <SearchBar allStocks={allStocks} />
+      <NavItems>
+        <Logo>
+          <FontAwesomeIcon icon={faPencilAlt} />
+        </Logo>
+        <SearchBar allStocks={allStocks} />
+      </NavItems>
     </Navbar>
   );
 };

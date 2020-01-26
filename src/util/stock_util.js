@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-const API_TOKEN = 'pk_589ed06b435744fbb36ab24f30c0881e';
+const API_TOKEN = 'pk_167d7251ba544870a71072021a666288';
 
 export async function fetchStockChart(ticker, range) {
   let interval;
@@ -24,7 +24,7 @@ export async function fetchStockChart(ticker, range) {
       break;
   }
   const response = await fetch(
-    `https://cloud.iexapis.com/stable/stock/${ticker}/batch?range=${range}&chartInterval=${interval}&types=company,quote,chart,stats&token=${API_TOKEN}`,
+    `https://cloud.iexapis.com/stable/stock/${ticker}/batch?range=${range}&chartInterval=${interval * 10}&types=company,quote,chart,stats&token=${API_TOKEN}`,
   );
   const intraDay = await fetch(
     `https://cloud.iexapis.com/stable/stock/${ticker}/batch?&types=chart&range=1D&chartInterval=12&token=${API_TOKEN}`,
