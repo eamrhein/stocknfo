@@ -107,7 +107,7 @@ const About = ({ stock }) => {
       <Title2>Investment Type</Title2>
       <Tags>
         {company.tags.map((tag) => (
-          <Tag>{tag}</Tag>
+          <Tag key={tag}>{tag}</Tag>
         ))}
       </Tags>
     </CompanInfo>
@@ -120,15 +120,20 @@ About.defaultProps = {
   },
 };
 About.propTypes = {
-  stock: {
-    company: {
-      CEO: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      employees: PropTypes.string.isRequired,
-      city: PropTypes.string.isRequired,
-      state: PropTypes.string.isRequired,
-      website: PropTypes.string.isRequired,
-    },
-  },
+  stock: PropTypes.shape({
+    company: PropTypes.shape({
+      description: PropTypes.string,
+      website: PropTypes.string,
+      CEO: PropTypes.string,
+      employees: PropTypes.number,
+      city: PropTypes.string,
+      state: PropTypes.string,
+      tags: PropTypes.arrayOf(PropTypes.string),
+    }),
+    volume: PropTypes.number,
+    dividendYield: PropTypes.number,
+    peRatio: PropTypes.number,
+    marketCap: PropTypes.number,
+  }),
 };
 export default About;

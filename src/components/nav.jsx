@@ -48,9 +48,10 @@ Nav.defaultProps = {
   allStocks: [],
 };
 Nav.propTypes = {
-  allStocks: PropTypes.array.length >= 0,
+  allStocks: PropTypes.arrayOf(PropTypes.shape({})),
   loadStocks: PropTypes.func.isRequired,
 };
+
 
 const mSTP = (state) => ({
   allStocks: state.entities.stocks.allStocks,

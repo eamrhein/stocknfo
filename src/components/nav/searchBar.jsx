@@ -69,7 +69,6 @@ const SearchBar = (props) => {
   const { allStocks, history } = props;
   const [cursor, setCursor] = useState(0);
   const [input, setInput] = useState('');
-
   const match = (stock) => {
     let matchBool = false;
     const matchFunc = (field) => {
@@ -167,10 +166,11 @@ SearchBar.defaultProps = {
   history: {},
 };
 SearchBar.propTypes = {
-  allStocks: PropTypes.array.length >= 0,
-  history: {
+  allStocks: PropTypes.arrayOf(PropTypes.shape({})),
+  history: PropTypes.shape({
+    length: PropTypes.number.isRequired,
     push: PropTypes.func.isRequired,
-  },
+  }),
 };
 
 export default withRouter(SearchBar);

@@ -213,11 +213,6 @@ Stock.defaultProps = {
 Stock.propTypes = {
   current: PropTypes.string.isRequired,
   fetchStockChart: PropTypes.func.isRequired,
-  stocks: {
-    latestPrice: PropTypes.string.isRequired,
-    chart: PropTypes.array.isRequired,
-    company: PropTypes.string.isRequired,
-    intraday: PropTypes.array.isRequired,
-  },
+  stocks: PropTypes.shape({}),
 };
 export default Stock;
