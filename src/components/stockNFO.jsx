@@ -11,6 +11,7 @@ import {
   Legend,
 } from 'recharts';
 import styled from 'styled-components';
+import Loading from './loading';
 import About from './about';
 
 const StockWrapper = styled.div`
@@ -33,7 +34,7 @@ const CompanyName = styled.h1`
 const Price = styled.h2`
   font-size: 36px;
   font-weight: 400;
-  line-height 42px;
+  line-height: 42px;
   margin-left: 1rem;
 `;
 const ChangeStyle = styled.div`
@@ -67,17 +68,17 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
   const [range, setRange] = useState('5Y');
   const [change, setChange] = useState('');
   const [logo, setLogo] = useState('');
-
+  const [loaded, setLoaded] = useState(true);
   useEffect(() => {
+    setLoaded(false);
     fetchStockChart(current, range);
   }, [fetchStockChart, range, current]);
 
   useEffect(() => {
-
-  }, [range]);
-
-  useEffect(() => {
     if (stocks[current]) {
+      setTimeout(() => {
+        setLoaded(true);
+      }, 1000);
       const parseChange = (method) => {
         const currentPrice = parseFloat(stocks[current].latestPrice);
         let percent = parseFloat(stocks[current][method]);
@@ -132,7 +133,7 @@ $
         setChange(changeComp);
       };
       setLogo(stocks[current].logo);
-      setChartState(stocks[current].chart);
+      setChartState(range === '1D' ? stocks[current].intraday : stocks[current].chart);
       setCompany(stocks[current].securityName);
       setPrice(stocks[current].latestPrice.toFixed(2));
       renderChange();
@@ -142,6 +143,7 @@ $
     const text = e.target.innerText;
     switch (text) {
       case '1D':
+        console.log(stocks);
         setRange('1D');
         setChartState(stocks[current].intraday);
         break;
@@ -191,7 +193,7 @@ $
     </ResponsiveContainer>
   );
   return (
-    chartState.length !== 0 ? (
+    loaded ? (
       <StockWrapper>
         <CompanyName>
           {company}
@@ -225,7 +227,7 @@ $
         <About stock={stocks[current]} />
       </StockWrapper>
     ) : (
-      <div className="chart-Wraper">...Loading</div>
+      <Loading />
     )
   );
 };

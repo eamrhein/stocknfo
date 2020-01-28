@@ -76,6 +76,13 @@ const About = ({ stock }) => {
     return false;
   };
 
+  const renderDesc = () => {
+    if (expand) {
+      return (stock.description);
+    }
+    return (`${stock.description.slice(0, 350)}... `);
+  };
+
   const renderTable = () => {
     const stockList = Object.keys(stock).filter(filterStock);
     let tableRow = [];
@@ -94,9 +101,9 @@ const About = ({ stock }) => {
       <Table>
         <Tbody>
           {table.map((row) => (
-            <Trow>
+            <Trow key={Math.random()}>
               {row.map((info) => (
-                <Cell>
+                <Cell key={info[0]}>
                   <Heading>{info[0]}</Heading>
                   <Info>{info[1]}</Info>
                 </Cell>
@@ -110,22 +117,31 @@ const About = ({ stock }) => {
   return (
     <CompanInfo>
       <h1>About</h1>
-      <Desc>
-        {expand
-          ? stock.description
-          : `${stock.description.slice(0, 350)}... `}
-        <Text onClick={() => setExpand(!expand)}>
-          {expand ? 'read less' : 'read more'}
-        </Text>
-      </Desc>
+      {
+        stock.description ? (
+          <Desc>
+            {renderDesc()}
+            <Text onClick={() => setExpand(!expand)}>
+              {expand ? 'read less' : 'read more'}
+            </Text>
+          </Desc>
+        )
+          : null
+        }
+
       {renderTable()}
 
       <h2>Investment Type</h2>
-      <Tags>
-        {stock.tags.map((tag) => (
-          <Tag key={tag}>{tag}</Tag>
-        ))}
-      </Tags>
+      {
+        stock.tags ? (
+          <Tags>
+            {stock.tags.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </Tags>
+        ) : null
+      }
+
     </CompanInfo>
   );
 };
@@ -136,16 +152,7 @@ About.defaultProps = {
 About.propTypes = {
   stock: PropTypes.shape({
     description: PropTypes.string,
-    website: PropTypes.string,
-    CEO: PropTypes.string,
-    employees: PropTypes.number,
-    city: PropTypes.string,
-    state: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
-    volume: PropTypes.number,
-    dividendYield: PropTypes.number,
-    peRatio: PropTypes.number,
-    marketCap: PropTypes.number,
   }),
 };
 export default About;

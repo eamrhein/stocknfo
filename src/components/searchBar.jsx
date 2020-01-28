@@ -146,10 +146,9 @@ const SearchBar = (props) => {
       setCursor(cursor + 1);
     }
     if (e.keyCode === 13) {
-      const elements = [...document.getElementsByClassName('result')];
-      const symbol = elements[cursor].innerHTML;
+      const elements = [...document.getElementsByClassName('active')];
+      const symbol = elements[0].childNodes[0].innerText;
       setInput('');
-
       history.push(`/${symbol}`);
     }
   };
