@@ -6,8 +6,11 @@ import contains from '../util/helpers';
 const CompanInfo = styled.div`
   margin-top: 10px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  @media(max-width: 1000px) {
+    flex-direction: column;
+  }
 `;
 const Table = styled.div`
   display: table;
@@ -20,7 +23,7 @@ const Trow = styled.div`
 `;
 const Cell = styled.div`
   display: table-cell;
-  padding: 1rem;
+  padding: 0.25rem;
   @media (max-width: 700px) {
     display: flex;
     flex-direction: column;
@@ -43,28 +46,41 @@ const Desc = styled.p`
   text-indent: 25px;
   line-height: 1.5;
   font-size: 10pt;
+  max-width: 40vw;
 `;
 const Tags = styled.div`
+  margin: 1rem;
   display: flex;
+  justify-content: center;
+`;
+const Card = styled.div`
+  line-height: 2;
+  padding: 1rem;
+  h1 {
+    text-align: center;
+  }
+  a {
+    text-decoration:none;
+    color: ${(props) => props.theme.colors.font}
+  }
 `;
 const Tag = styled.span`
   flex-direction: row;
   align-items: center;
-  background-color: #7b1fa2;
-  color: #e8c9f5;
+  background-color: ${(props) => props.theme.colors.third};
+  color: ${(props) => props.theme.colors.font};
   fill: purple;
   font-size: 10pt;
   font-weight: 700;
   margin: 0 12px 5px 0;
   padding: 8px;
-  border-radius: 17px;
 `;
 
 const About = ({ stock }) => {
   const [expand, setExpand] = useState(false);
   const filterStock = (key) => {
     key = key.toLowerCase();
-    if (contains(key, ['iex', 'time', 'description', 'price', 'change', 'symbol', 'logo'])) {
+    if (contains(key, ['iex', 'time', 'description', 'price', 'change', 'symbol', 'logo', '52', 'market'])) {
       return false;
     }
     if (typeof stock[key] === 'number') {
@@ -82,7 +98,10 @@ const About = ({ stock }) => {
     }
     return (`${stock.description.slice(0, 350)}... `);
   };
-
+  const renderNews = () => {
+    const news = stock.news.map((stock) => <li key={stock.url}><a href={stock.url}>{stock.headline}</a></li>);
+    return news;
+  };
   const renderTable = () => {
     const stockList = Object.keys(stock).filter(filterStock);
     let tableRow = [];
@@ -116,8 +135,18 @@ const About = ({ stock }) => {
   };
   return (
     <CompanInfo>
-      <h1>About</h1>
-      {
+      <Card>
+        <h1>About</h1>
+        {
+        stock.tags ? (
+          <Tags>
+            {stock.tags.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </Tags>
+        ) : null
+      }
+        {
         stock.description ? (
           <Desc>
             {renderDesc()}
@@ -128,20 +157,16 @@ const About = ({ stock }) => {
         )
           : null
         }
-
-      {renderTable()}
-
-      <h2>Investment Type</h2>
-      {
-        stock.tags ? (
-          <Tags>
-            {stock.tags.map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
-            ))}
-          </Tags>
-        ) : null
-      }
-
+        {renderTable()}
+      </Card>
+      <Card>
+        {stock.news ? (
+          <div>
+            <h1>News</h1>
+            {renderNews()}
+          </div>
+        ) : (null)}
+      </Card>
     </CompanInfo>
   );
 };

@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-const API_TOKEN = 'pk_3c885f528e6a4d079ce8222d394787b8';
+const API_TOKEN = 'pk_d896713d3ef74a9e864433de727e5704';
 const BASE_URL = 'https://cloud.iexapis.com/stable/stock';
 export async function fetchStockChart(ticker, range) {
   let interval;

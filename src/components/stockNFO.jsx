@@ -20,6 +20,13 @@ const StockWrapper = styled.div`
   width: 80vw;
   bottom: 5vw;
 `;
+const ToolWrapper = styled.div`
+  background-color: ${(props) => props.theme.colors.navbar};
+  padding: 0.5rem;
+  strong {
+    font-weight: bolder;
+  }
+`;
 const ChartWrapper = styled.div`
   background-color: ${(props) => props.theme.colors.card};
   padding: 1rem;
@@ -60,7 +67,21 @@ const Img = styled.img`
   width: 100%;
   height: auto;
 `;
-
+const CustomToolTip = (props) => {
+  const { payload, label } = props;
+  return (
+    <ToolWrapper>
+      <p>
+        <strong>Date: </strong>
+        {label}
+      </p>
+      <h4>
+        <strong>Price: </strong>
+        {payload[0] ? payload[0].name + payload[0].value : null}
+      </h4>
+    </ToolWrapper>
+  );
+};
 const Stock = ({ stocks, fetchStockChart, current }) => {
   const [chartState, setChartState] = useState([]);
   const [company, setCompany] = useState('');
@@ -167,6 +188,7 @@ $
         break;
     }
   };
+
   const renderLineChart = () => (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart data={chartState} width={400} height={400}>
@@ -184,6 +206,7 @@ $
           stroke="#7B1FA2"
         />
         <Tooltip
+          content={<CustomToolTip />}
           separator=""
           offset={-40}
           position={{ y: -15 }}
