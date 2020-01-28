@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchStockChart } from '../actions/stock_actions';
-import StockChart from './stockChartWidget';
+import StockChart from './stockNFO';
 
 const mapSTP = (state, ownProps) => ({
-  stocks: state.entities.stocks,
+  stocks: state.stocks,
   current: ownProps.match.params.sym || 'MSFT',
   ownProps,
 });

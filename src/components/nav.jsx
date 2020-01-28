@@ -1,26 +1,32 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { AiOutlineStock } from 'react-icons/ai';
 import styled from 'styled-components';
-import { receiveStocks } from '../actions/stock_actions';
-import SearchBar from './nav/searchBar';
+import { fetchSymbols } from '../actions/stock_actions';
+import SearchBar from './searchBar';
 
 const Navbar = styled.nav`
-  background-color: #555555;
-  border-bottom: 1px solid black;
+  background-color: ${(props) => props.theme.colors.navbar};
 `;
 const Logo = styled.i`
-  background-color: #fafafa;
+  text-shadow: 1px 1px black; 
   padding: 6px;
-  border: 1px solid black;
-  border-radius: 3px;
   margin-right: 10px;
-  font-size: 24pt;
-  color: #7b1fa2;
+  font-size: 34pt;
+  font-weight: bolder;
+  color: ${(props) => props.theme.colors.primary};
 `;
-
+const LogoText = styled.h3`
+  text-shadow: 1px 1px black;
+  font-family: Roboto Condensed;
+  font-weight: lighter;
+  strong {
+    font-family: Eczar;
+    font-weight: bolder;
+    color: ${(props) => props.theme.colors.primary}
+  }
+`;
 const NavItems = styled.div`
   margin-left: 10px;
   margin-right: 10px;
@@ -35,8 +41,12 @@ const Nav = ({ allStocks, loadStocks }) => {
   return (
     <Navbar>
       <NavItems>
+        <LogoText>
+          Stock
+          <strong>NFO</strong>
+        </LogoText>
         <Logo>
-          <FontAwesomeIcon icon={faPencilAlt} />
+          <AiOutlineStock />
         </Logo>
         <SearchBar allStocks={allStocks} />
       </NavItems>
@@ -54,9 +64,9 @@ Nav.propTypes = {
 
 
 const mSTP = (state) => ({
-  allStocks: state.entities.stocks.allStocks,
+  allStocks: state.stocks.allStocks,
 });
 const mDTP = (dispatch) => ({
-  loadStocks: () => dispatch(receiveStocks()),
+  loadStocks: () => dispatch(fetchSymbols()),
 });
 export default connect(mSTP, mDTP)(Nav);

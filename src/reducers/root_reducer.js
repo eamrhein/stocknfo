@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import entitiesReducer from './entities_reducer';
+import stockReducer from './stocks_reducer';
 
 const rootReducer = combineReducers({
-  entities: entitiesReducer,
+  stocks: stockReducer,
 });
 
 export default rootReducer;

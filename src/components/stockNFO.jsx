@@ -11,7 +11,7 @@ import {
   Legend,
 } from 'recharts';
 import styled from 'styled-components';
-import About from './newsFeedWidget';
+import About from './about';
 
 const StockWrapper = styled.div`
   display: flex;
@@ -19,14 +19,18 @@ const StockWrapper = styled.div`
   width: 80vw;
   bottom: 5vw;
 `;
-const ChartWrapper = styled.div``;
+const ChartWrapper = styled.div`
+  background-color: ${(props) => props.theme.colors.card};
+  padding: 1rem;
+  margin: 1rem;
+`;
 const CompanyName = styled.h1`
   text-align: center;
   line-height: 42px;
   font-size: 36px;
   font-weight: 500;
 `;
-const Price = styled.h3`
+const Price = styled.h2`
   font-size: 36px;
   font-weight: 400;
   line-height 42px;
@@ -48,6 +52,13 @@ const RangeBtn = styled.div`
   font-size: 0.8rem;
   margin: 0rem 0.25rem;
 `;
+const Img = styled.img`
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  max-width: 40px;
+  width: 100%;
+  height: auto;
+`;
 
 const Stock = ({ stocks, fetchStockChart, current }) => {
   const [chartState, setChartState] = useState([]);
@@ -55,10 +66,15 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
   const [price, setPrice] = useState('');
   const [range, setRange] = useState('5Y');
   const [change, setChange] = useState('');
+  const [logo, setLogo] = useState('');
 
   useEffect(() => {
     fetchStockChart(current, range);
   }, [fetchStockChart, range, current]);
+
+  useEffect(() => {
+
+  }, [range]);
 
   useEffect(() => {
     if (stocks[current]) {
@@ -115,8 +131,9 @@ $
         );
         setChange(changeComp);
       };
+      setLogo(stocks[current].logo);
       setChartState(stocks[current].chart);
-      setCompany(stocks[current].company.securityName);
+      setCompany(stocks[current].securityName);
       setPrice(stocks[current].latestPrice.toFixed(2));
       renderChange();
     }
@@ -174,37 +191,42 @@ $
     </ResponsiveContainer>
   );
   return (
-    <StockWrapper>
-      <CompanyName>{company}</CompanyName>
-      <Price>
-$
-        {price}
-      </Price>
-      {change}
-      {chartState.length !== 0 ? (
-        <ChartWrapper>{renderLineChart()}</ChartWrapper>
-      ) : (
-        <div className="chart-Wraper">...Loading</div>
-      )}
-      <RangeGroup>
-        <RangeBtn id={range === '1D' ? 'active' : null} onClick={handleRange}>
+    chartState.length !== 0 ? (
+      <StockWrapper>
+        <CompanyName>
+          {company}
+        </CompanyName>
+        <Price>
+          {logo ? (<Img alt="company-logo" src={logo} />) : null}
+       $
+          {price}
+        </Price>
+        {change}
+        <ChartWrapper>
+          {renderLineChart()}
+          <RangeGroup>
+            <RangeBtn id={range === '1D' ? 'active' : null} onClick={handleRange}>
           1D
-        </RangeBtn>
-        <RangeBtn id={range === '1M' ? 'active' : null} onClick={handleRange}>
+            </RangeBtn>
+            <RangeBtn id={range === '1M' ? 'active' : null} onClick={handleRange}>
           1M
-        </RangeBtn>
-        <RangeBtn id={range === '3M' ? 'active' : null} onClick={handleRange}>
+            </RangeBtn>
+            <RangeBtn id={range === '3M' ? 'active' : null} onClick={handleRange}>
           3M
-        </RangeBtn>
-        <RangeBtn id={range === '1Y' ? 'active' : null} onClick={handleRange}>
+            </RangeBtn>
+            <RangeBtn id={range === '1Y' ? 'active' : null} onClick={handleRange}>
           1Y
-        </RangeBtn>
-        <RangeBtn id={range === '5Y' ? 'active' : null} onClick={handleRange}>
+            </RangeBtn>
+            <RangeBtn id={range === '5Y' ? 'active' : null} onClick={handleRange}>
           5Y
-        </RangeBtn>
-      </RangeGroup>
-      {stocks[current] ? <About stock={stocks[current]} /> : '...loading'}
-    </StockWrapper>
+            </RangeBtn>
+          </RangeGroup>
+        </ChartWrapper>
+        <About stock={stocks[current]} />
+      </StockWrapper>
+    ) : (
+      <div className="chart-Wraper">...Loading</div>
+    )
   );
 };
 Stock.defaultProps = {

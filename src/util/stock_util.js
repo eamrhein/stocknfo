@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-const API_TOKEN = 'pk_167d7251ba544870a71072021a666288';
+const API_TOKEN = 'pk_ae15acdbbf2a463384bff1f6681e6fc5';
 const BASE_URL = 'https://cloud.iexapis.com/stable/stock';
 export async function fetchStockChart(ticker, range) {
   let interval;
@@ -24,7 +24,7 @@ export async function fetchStockChart(ticker, range) {
       break;
   }
   const response = await fetch(
-    `${BASE_URL}/${ticker}/batch?range=${range}&chartInterval=${interval * 10}&types=company,quote,chart,stats&token=${API_TOKEN}`,
+    `${BASE_URL}/${ticker}/batch?range=${range}&chartInterval=${interval * 10}&types=company,quote,chart,stats,logo,news&token=${API_TOKEN}`,
   ).catch((err) => console.log(err));
   const intraDay = await fetch(
     `${BASE_URL}/${ticker}/batch?&types=chart&range=1D&chartInterval=12&token=${API_TOKEN}`,
@@ -33,4 +33,10 @@ export async function fetchStockChart(ticker, range) {
   const parsed = await response.json();
   parsed.intraDay = intraParsed.chart;
   return parsed;
+}
+
+export async function fetchSymbols() {
+  const response = await fetch(`https://cloud.iexapis.com/beta/ref-data/symbols?token=${API_TOKEN}`);
+  const json = await response.json();
+  return json;
 }

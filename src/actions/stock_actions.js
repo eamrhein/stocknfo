@@ -4,8 +4,9 @@ export const LOAD_SYMBOLS = 'LOAD_SYMBOLS';
 export const RECEIVE_STOCKS = 'RECEIVE_STOCKS';
 export const RECEIVE_STOCK_CHART = 'RECEIVE_STOCK_CHART';
 
-export const receiveStocks = () => ({
+const receiveStocks = (symbols) => ({
   type: RECEIVE_STOCKS,
+  symbols,
 });
 
 const receiveStockChart = (chartData, ticker) => ({
@@ -17,3 +18,7 @@ const receiveStockChart = (chartData, ticker) => ({
 export const fetchStockChart = (ticker, range) => (dispatch) => (
   APIStockUtil.fetchStockChart(ticker, range)
     .then((stats) => dispatch(receiveStockChart(stats, ticker))));
+
+export const fetchSymbols = () => (dispatch) => (
+  APIStockUtil.fetchSymbols()
+    .then((symbols) => dispatch(receiveStocks(symbols))));

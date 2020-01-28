@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 const Search = styled.div`
@@ -28,29 +26,31 @@ const Search = styled.div`
   }
 `;
 const Results = styled.div`
+  z-index: 20;
   display: table;
   width: 90vw;
-  -webkit-box-shadow: 3px 3px 5px 6px #cbcbcb;
-  -moz-box-shadow: 3px 3px 5px 6px #cbcbcb;
-  abox-shadow: 3px 3px 5px 6px #cbcbcb;
   padding: 10px;
   position: absolute;
   left: 4vw;
   top: 55px;
   right: 1vw;
   border-radius: 4px;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.navbar};
   .active {
-    background-color: #cbcbcb;
-    color: white;
+    background-color: ${(props) => props.theme.colors.navbar};
+    color: ${(props) => props.theme.colors.primary};
   }
 `;
 const Result = styled.div`
+  background-color: ${(props) => props.theme.colors.card};
   display: table-row;
   margin: 1px;
   line-height: 1.5;
 `;
-
+const Heading = styled.div`
+  display: table-row;
+  margin: 1px;
+`;
 const Symbol = styled.span`
   padding-right: 3rem;
   display: table-cell;
@@ -58,9 +58,11 @@ const Symbol = styled.span`
 `;
 
 const Label = styled.div`
+  padding: 1px;
   font-size: 10pt;
   color: grey;
   font-weight: bolder;
+  display: table-cell;
 `;
 const Name = styled.span`
   display: table-cell;
@@ -69,6 +71,7 @@ const SearchBar = (props) => {
   const { allStocks, history } = props;
   const [cursor, setCursor] = useState(0);
   const [input, setInput] = useState('');
+  const [hover, setHover] = useState(null);
   const match = (stock) => {
     let matchBool = false;
     const matchFunc = (field) => {
@@ -110,11 +113,17 @@ const SearchBar = (props) => {
     if (input.length > 0) {
       return (
         <Results>
-          <Label>Stock</Label>
+          <Heading>
+            <Label>Symbol</Label>
+            <Label>Name</Label>
+          </Heading>
           {filterStocks().map((stock, i) => (
             <Result
               onClick={() => handleClick(stock.symbol)}
-              className={cursor === i ? 'active' : null}
+              className={cursor === i || hover === i ? 'active' : null}
+              key={stock.symbol}
+              onMouseEnter={() => setHover(i)}
+              onMouseLeave={() => setHover(null)}
             >
               <Symbol className="result">{stock.symbol}</Symbol>
               <Name>
@@ -147,7 +156,7 @@ const SearchBar = (props) => {
   return (
     <>
       <Search>
-        <FontAwesomeIcon icon={faSearch} />
+        {/* <FontAwesomeIcon icon={faSearch} /> */}
         <input
           type="text"
           className="searcbar-input"
