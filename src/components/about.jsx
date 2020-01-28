@@ -8,7 +8,7 @@ const CompanInfo = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  @media(max-width: 1000px) {
+  @media(max-width: 1200px) {
     flex-direction: column;
   }
 `;
@@ -46,7 +46,6 @@ const Desc = styled.p`
   text-indent: 25px;
   line-height: 1.5;
   font-size: 10pt;
-  max-width: 40vw;
 `;
 const Tags = styled.div`
   margin: 1rem;
@@ -56,6 +55,7 @@ const Tags = styled.div`
 const Card = styled.div`
   line-height: 2;
   padding: 1rem;
+  min-width: 30vw;
   h1 {
     text-align: center;
   }
@@ -75,7 +75,18 @@ const Tag = styled.span`
   margin: 0 12px 5px 0;
   padding: 8px;
 `;
-
+const NewsItem = styled.li`
+  list-style-type: circle;
+  transition: 0.5s;
+  a {
+    padding: 0.25rem;
+  }
+  a:hover {
+    background-color: ${(props) => props.theme.colors.card};
+    color: ${(props) => props.theme.colors.sixth};
+    font-weight: normal;
+  }
+`;
 const About = ({ stock }) => {
   const [expand, setExpand] = useState(false);
   const filterStock = (key) => {
@@ -99,7 +110,7 @@ const About = ({ stock }) => {
     return (`${stock.description.slice(0, 350)}... `);
   };
   const renderNews = () => {
-    const news = stock.news.map((stock) => <li key={stock.url}><a href={stock.url}>{stock.headline}</a></li>);
+    const news = stock.news.map((stock) => <NewsItem key={stock.url}><a href={stock.url}>{stock.headline}</a></NewsItem>);
     return news;
   };
   const renderTable = () => {
@@ -163,7 +174,9 @@ const About = ({ stock }) => {
         {stock.news ? (
           <div>
             <h1>News</h1>
-            {renderNews()}
+            <ul>
+              {renderNews()}
+            </ul>
           </div>
         ) : (null)}
       </Card>

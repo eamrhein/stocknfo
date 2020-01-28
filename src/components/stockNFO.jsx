@@ -53,7 +53,7 @@ const RangeGroup = styled.div`
   font-weight: 600;
   margin-left: 1rem;
   #active {
-    color: #7b1fa2;
+    color: #B15DFF;
   }
 `;
 const RangeBtn = styled.div`
@@ -203,7 +203,7 @@ $
           dot={false}
           dataKey="close"
           strokeWidth={2.5}
-          stroke="#7B1FA2"
+          stroke="#B15DFF"
         />
         <Tooltip
           content={<CustomToolTip />}
