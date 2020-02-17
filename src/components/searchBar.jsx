@@ -67,77 +67,78 @@ const Label = styled.div`
 const Name = styled.span`
   display: table-cell;
 `;
+const match = (stock, input) => {
+  let matchBool = false;
+  const matchFunc = (field) => {
+    let fstring = '';
+    const testInput = input.toLowerCase();
+    if (typeof field === 'string') {
+      fstring = field.toLowerCase();
+    }
+    return (
+      testInput.length <= field.length
+      && fstring.slice(0, testInput.length) === testInput
+    );
+  };
+  if (stock.name && (matchFunc(stock.name) || matchFunc(stock.symbol))) {
+    matchBool = true;
+  }
+  return matchBool;
+};
+const filterStocks = (allStocks, input) => {
+  const results = [];
+  const maxSize = 6;
+  let i = 0;
+  if (allStocks) {
+    while (results.length < maxSize && i < allStocks.length) {
+      if (match(allStocks[i], input)) {
+        results.push(allStocks[i]);
+      }
+      i += 1;
+    }
+  }
+  return results;
+};
+
+const ResultsComponent = ({
+  allStocks, handleClick, cursor, hover, setHover, input, setInput,
+}) => {
+  if (input && input.length) {
+    return (
+      <Results>
+        <Heading>
+          <Label>Symbol</Label>
+          <Label>Name</Label>
+        </Heading>
+        {filterStocks(allStocks, input).map((stock, i) => (
+          <Result
+            onClick={() => handleClick(stock.symbol)}
+            className={cursor === i || hover === i ? 'active' : null}
+            key={stock.symbol}
+            onMouseEnter={() => setHover(i)}
+            onMouseLeave={() => setHover(null)}
+          >
+            <Symbol className="result">{stock.symbol}</Symbol>
+            <Name>
+              {stock.name
+                .split(' ')
+                .slice(0, 3)
+                .join(' ')}
+            </Name>
+          </Result>
+        ))}
+      </Results>
+    );
+  } return null;
+};
 const SearchBar = (props) => {
   const { allStocks, history } = props;
   const [cursor, setCursor] = useState(0);
   const [input, setInput] = useState('');
   const [hover, setHover] = useState(null);
-  const match = (stock) => {
-    let matchBool = false;
-    const matchFunc = (field) => {
-      let fstring = '';
-      const testInput = input.toLowerCase();
-      if (typeof field === 'string') {
-        fstring = field.toLowerCase();
-      }
-      return (
-        testInput.length <= field.length
-        && fstring.slice(0, testInput.length) === testInput
-      );
-    };
-    if (stock.name && (matchFunc(stock.name) || matchFunc(stock.symbol))) {
-      matchBool = true;
-    }
-    return matchBool;
-  };
-
-  const filterStocks = () => {
-    const results = [];
-    const maxSize = 6;
-    let i = 0;
-    if (allStocks) {
-      while (results.length < maxSize && i < allStocks.length) {
-        if (match(allStocks[i])) {
-          results.push(allStocks[i]);
-        }
-        i += 1;
-      }
-    }
-    return results;
-  };
   const handleClick = (symbol) => {
     setInput('');
     history.push(`/${symbol}`);
-  };
-  const renderResults = () => {
-    if (input.length > 0) {
-      return (
-        <Results>
-          <Heading>
-            <Label>Symbol</Label>
-            <Label>Name</Label>
-          </Heading>
-          {filterStocks().map((stock, i) => (
-            <Result
-              onClick={() => handleClick(stock.symbol)}
-              className={cursor === i || hover === i ? 'active' : null}
-              key={stock.symbol}
-              onMouseEnter={() => setHover(i)}
-              onMouseLeave={() => setHover(null)}
-            >
-              <Symbol className="result">{stock.symbol}</Symbol>
-              <Name>
-                {stock.name
-                  .split(' ')
-                  .slice(0, 3)
-                  .join(' ')}
-              </Name>
-            </Result>
-          ))}
-        </Results>
-      );
-    }
-    return null;
   };
   const handleKeyDown = (e) => {
     if (e.keyCode === 38 && cursor > 0) {
@@ -165,7 +166,16 @@ const SearchBar = (props) => {
           onChange={(e) => setInput(e.target.value)}
         />
       </Search>
-      {renderResults()}
+      <ResultsComponent
+        allStocks={allStocks}
+        handleClick={handleClick}
+        hover={hover}
+        setHover={setHover}
+        cursor={cursor}
+        setCursor={setCursor}
+        input={input}
+        setInput={setInput}
+      />
     </>
   );
 };

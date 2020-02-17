@@ -87,63 +87,70 @@ const NewsItem = styled.li`
     font-weight: normal;
   }
 `;
-const About = ({ stock }) => {
-  const [expand, setExpand] = useState(false);
+
+const News = ({ stock }) => (
+  stock.news.map((stockItem) => (
+    <NewsItem key={stockItem.url}>
+      <a href={stockItem.url}>
+        {stockItem.headline}
+      </a>
+    </NewsItem>
+  ))
+);
+
+const renderDesc = (stock, expand) => {
+  if (expand) {
+    return (stock.description);
+  }
+  return (`${stock.description.slice(0, 350)}... `);
+};
+
+const TableComponent = ({ stock }) => {
   const filterStock = (key) => {
-    key = key.toLowerCase();
-    if (contains(key, ['iex', 'time', 'description', 'price', 'change', 'symbol', 'logo', '52', 'market'])) {
+    const param = key.toLowerCase();
+    if (contains(param, ['iex', 'time', 'description', 'price', 'change', 'symbol', 'logo', '52', 'market'])) {
       return false;
     }
-    if (typeof stock[key] === 'number') {
+    if (typeof stock[param] === 'number') {
       return true;
     }
-    if (typeof stock[key] === 'string') {
+    if (typeof stock[param] === 'string') {
       return true;
     }
     return false;
   };
-
-  const renderDesc = () => {
-    if (expand) {
-      return (stock.description);
+  const stockList = Object.keys(stock).filter(filterStock);
+  let tableRow = [];
+  const table = [];
+  stockList.forEach((sym, i) => {
+    if (i % 4 === 0 && i !== 0) {
+      table.push(tableRow);
+      tableRow = [];
     }
-    return (`${stock.description.slice(0, 350)}... `);
-  };
-  const renderNews = () => {
-    const news = stock.news.map((stock) => <NewsItem key={stock.url}><a href={stock.url}>{stock.headline}</a></NewsItem>);
-    return news;
-  };
-  const renderTable = () => {
-    const stockList = Object.keys(stock).filter(filterStock);
-    let tableRow = [];
-    const table = [];
-    stockList.forEach((sym, i) => {
-      if (i % 4 === 0 && i !== 0) {
-        table.push(tableRow);
-        tableRow = [];
-      }
-      tableRow.push([
-        sym, stock[sym],
-      ]);
-    });
-    table.push(tableRow);
-    return (
-      <Table>
-        <Tbody>
-          {table.map((row) => (
-            <Trow key={Math.random()}>
-              {row.map((info) => (
-                <Cell key={info[0]}>
-                  <Heading>{info[0]}</Heading>
-                  <Info>{info[1]}</Info>
-                </Cell>
-              ))}
-            </Trow>
-          ))}
-        </Tbody>
-      </Table>
-    );
-  };
+    tableRow.push([
+      sym, stock[sym],
+    ]);
+  });
+  table.push(tableRow);
+  return (
+    <Table>
+      <Tbody>
+        {table.map((row) => (
+          <Trow key={Math.random()}>
+            {row.map((info) => (
+              <Cell key={info[0]}>
+                <Heading>{info[0]}</Heading>
+                <Info>{info[1]}</Info>
+              </Cell>
+            ))}
+          </Trow>
+        ))}
+      </Tbody>
+    </Table>
+  );
+};
+const About = ({ stock }) => {
+  const [expand, setExpand] = useState(false);
   return (
     <CompanInfo>
       <Card>
@@ -160,7 +167,7 @@ const About = ({ stock }) => {
         {
         stock.description ? (
           <Desc>
-            {renderDesc()}
+            {renderDesc(stock, expand)}
             <Text onClick={() => setExpand(!expand)}>
               {expand ? 'read less' : 'read more'}
             </Text>
@@ -168,14 +175,14 @@ const About = ({ stock }) => {
         )
           : null
         }
-        {renderTable()}
+        <TableComponent stock={stock} />
       </Card>
       <Card>
         {stock.news ? (
           <div>
             <h1>News</h1>
             <ul>
-              {renderNews()}
+              <News stock={stock} />
             </ul>
           </div>
         ) : (null)}
