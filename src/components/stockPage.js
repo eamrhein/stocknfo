@@ -4,7 +4,6 @@ import { fetchStockChart } from '../actions/stock_actions';
 import StockChart from './stockNFO';
 
 const mapSTP = (state, ownProps) => {
-  console.log(ownProps);
   return {
     stocks: state.stocks,
     current: ownProps.match.params.sym || 'MSFT',

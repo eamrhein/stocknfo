@@ -1,115 +1,22 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
+import { filterStocks } from '../util/helpers';
+import {
+  Results, Result, SearchHeading, Label, Symbol, Name, Search,
+} from './styles';
 
-const Search = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 8px;
-  border-radius: 5px;
-  background-color: #FAFAFA;
-  color: #cbcbcb;
-  border: 1px solid black;
-  padding: 0 24px 0 3px;
-  width: 100%;
-  input {
-    width: 100%;
-    color: #cbcbcb;
-    border: none;
-    height: 36px;
-    tranistion: color 150ms ease-out;
-  }
-  .fa-search {
-    font-size: 14pt;
-    color: #444444;
-  }
-`;
-const Results = styled.div`
-  z-index: 20;
-  display: table;
-  width: 90vw;
-  padding: 10px;
-  position: absolute;
-  left: 4vw;
-  top: 55px;
-  right: 1vw;
-  border-radius: 4px;
-  background-color: ${(props) => props.theme.colors.navbar};
-  .active {
-    background-color: ${(props) => props.theme.colors.navbar};
-    color: ${(props) => props.theme.colors.primary};
-  }
-`;
-const Result = styled.div`
-  background-color: ${(props) => props.theme.colors.card};
-  display: table-row;
-  margin: 1px;
-  line-height: 1.5;
-`;
-const Heading = styled.div`
-  display: table-row;
-  margin: 1px;
-`;
-const Symbol = styled.span`
-  padding-right: 3rem;
-  display: table-cell;
-  font-weight: bolder;
-`;
-
-const Label = styled.div`
-  padding: 1px;
-  font-size: 10pt;
-  color: grey;
-  font-weight: bolder;
-  display: table-cell;
-`;
-const Name = styled.span`
-  display: table-cell;
-`;
-const match = (stock, input) => {
-  let matchBool = false;
-  const matchFunc = (field) => {
-    let fstring = '';
-    const testInput = input.toLowerCase();
-    if (typeof field === 'string') {
-      fstring = field.toLowerCase();
-    }
-    return (
-      testInput.length <= field.length
-      && fstring.slice(0, testInput.length) === testInput
-    );
-  };
-  if (stock.name && (matchFunc(stock.name) || matchFunc(stock.symbol))) {
-    matchBool = true;
-  }
-  return matchBool;
-};
-const filterStocks = (allStocks, input) => {
-  const results = [];
-  const maxSize = 6;
-  let i = 0;
-  if (allStocks) {
-    while (results.length < maxSize && i < allStocks.length) {
-      if (match(allStocks[i], input)) {
-        results.push(allStocks[i]);
-      }
-      i += 1;
-    }
-  }
-  return results;
-};
-
+// Display Results
 const ResultsComponent = ({
-  allStocks, handleClick, cursor, hover, setHover, input, setInput,
+  allStocks, handleClick, cursor, hover, setHover, input,
 }) => {
   if (input && input.length) {
     return (
       <Results>
-        <Heading>
+        <SearchHeading>
           <Label>Symbol</Label>
           <Label>Name</Label>
-        </Heading>
+        </SearchHeading>
         {filterStocks(allStocks, input).map((stock, i) => (
           <Result
             onClick={() => handleClick(stock.symbol)}
@@ -131,6 +38,26 @@ const ResultsComponent = ({
     );
   } return null;
 };
+
+// Prop Validation
+ResultsComponent.defaultProps = {
+  allStocks: [],
+  cursor: 0,
+  input: '',
+  hover: 0,
+  handleClick() {},
+  setHover() {},
+};
+ResultsComponent.propTypes = {
+  allStocks: PropTypes.arrayOf(PropTypes.shape({})),
+  handleClick: PropTypes.func,
+  cursor: PropTypes.number,
+  input: PropTypes.string,
+  hover: PropTypes.number,
+  setHover: PropTypes.func,
+};
+
+
 const SearchBar = (props) => {
   const { allStocks, history } = props;
   const [cursor, setCursor] = useState(0);

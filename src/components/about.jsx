@@ -1,92 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import contains from '../util/helpers';
+import {
+  NewsItem, Table, Tbody, Trow, Cell, Heading,
+  Info, CompanInfo, Card, Tags, Tag, Desc, Text,
+} from './styles';
+import { contains } from '../util/helpers';
 
-const CompanInfo = styled.div`
-  margin-top: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  @media(max-width: 1200px) {
-    flex-direction: column;
-  }
-`;
-const Table = styled.div`
-  display: table;
-`;
-const Tbody = styled.div`
-  display: table-row-group;
-`;
-const Trow = styled.div`
-  display: table-row;
-`;
-const Cell = styled.div`
-  display: table-cell;
-  padding: 0.25rem;
-  @media (max-width: 700px) {
-    display: flex;
-    flex-direction: column;
-  }
-`;
-const Heading = styled.div`
-  text-transform: capitalize;
-  font-weight: bold;
-  padding-bottom: 10px;
-`;
-const Text = styled.span`
-  cursor: pointer;
-  color: #7b1fa2;
-  font-weight: 600;
-`;
-const Info = styled.div`
-  font-weight: light;
-`;
-const Desc = styled.p`
-  text-indent: 25px;
-  line-height: 1.5;
-  font-size: 10pt;
-`;
-const Tags = styled.div`
-  margin: 1rem;
-  display: flex;
-  justify-content: center;
-`;
-const Card = styled.div`
-  line-height: 2;
-  padding: 1rem;
-  min-width: 30vw;
-  h1 {
-    text-align: center;
-  }
-  a {
-    text-decoration:none;
-    color: ${(props) => props.theme.colors.font}
-  }
-`;
-const Tag = styled.span`
-  flex-direction: row;
-  align-items: center;
-  background-color: ${(props) => props.theme.colors.third};
-  color: ${(props) => props.theme.colors.font};
-  fill: purple;
-  font-size: 10pt;
-  font-weight: 700;
-  margin: 0 12px 5px 0;
-  padding: 8px;
-`;
-const NewsItem = styled.li`
-  list-style-type: circle;
-  transition: 0.5s;
-  a {
-    padding: 0.25rem;
-  }
-  a:hover {
-    background-color: ${(props) => props.theme.colors.card};
-    color: ${(props) => props.theme.colors.sixth};
-    font-weight: normal;
-  }
-`;
 
 const News = ({ stock }) => (
   stock.news.map((stockItem) => (
@@ -149,6 +68,14 @@ const TableComponent = ({ stock }) => {
     </Table>
   );
 };
+
+TableComponent.defaultProps = {
+  stock: {},
+};
+TableComponent.propTypes = {
+  stock: PropTypes.shape({}),
+};
+
 const About = ({ stock }) => {
   const [expand, setExpand] = useState(false);
   return (
@@ -192,12 +119,14 @@ const About = ({ stock }) => {
 };
 
 About.defaultProps = {
-  stock: {},
+  stock: {
+  },
 };
 About.propTypes = {
   stock: PropTypes.shape({
-    description: PropTypes.string,
+    news: PropTypes.arrayOf(PropTypes.shape({})),
     tags: PropTypes.arrayOf(PropTypes.string),
+    description: PropTypes.string,
   }),
 };
 export default About;

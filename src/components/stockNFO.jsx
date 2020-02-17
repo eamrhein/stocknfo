@@ -10,63 +10,12 @@ import {
   CartesianGrid,
   Legend,
 } from 'recharts';
-import styled from 'styled-components';
+import {
+  ToolWrapper, ChangeStyle, StockWrapper,
+  CompanyName, Price, Img, ChartWrapper, RangeGroup, RangeBtn,
+} from './styles';
 import About from './about';
 
-// styles
-const StockWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 80vw;
-  bottom: 5vw;
-`;
-const ToolWrapper = styled.div`
-  background-color: ${(props) => props.theme.colors.navbar};
-  padding: 0.5rem;
-  strong {
-    font-weight: bolder;
-  }
-`;
-const ChartWrapper = styled.div`
-  background-color: ${(props) => props.theme.colors.card};
-  padding: 1rem;
-  margin: 1rem;
-`;
-const CompanyName = styled.h1`
-  text-align: center;
-  line-height: 42px;
-  font-size: 36px;
-  font-weight: 500;
-`;
-const Price = styled.h2`
-  font-size: 36px;
-  font-weight: 400;
-  line-height: 42px;
-  margin-left: 1rem;
-`;
-const ChangeStyle = styled.div`
-  margin-left: 1rem;
-`;
-const RangeGroup = styled.div`
-  cursor: pointer;
-  display: flex;
-  font-weight: 600;
-  margin-left: 1rem;
-  #active {
-    color: #B15DFF;
-  }
-`;
-const RangeBtn = styled.div`
-  font-size: 0.8rem;
-  margin: 0rem 0.25rem;
-`;
-const Img = styled.img`
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
-  max-width: 40px;
-  width: 100%;
-  height: auto;
-`;
 
 // Chart Tooltip
 const CustomToolTip = (props) => {
@@ -79,10 +28,22 @@ const CustomToolTip = (props) => {
       </p>
       <h4>
         <strong>Price: </strong>
-        {payload[0] ? payload[0].name + payload[0].value : null}
+        {payload && payload[0] ? payload[0].name + payload[0].value : null}
       </h4>
     </ToolWrapper>
   );
+};
+
+CustomToolTip.defaultProps = {
+  payload: [],
+  label: '',
+};
+CustomToolTip.propTypes = {
+  payload: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string,
+    value: PropTypes.number,
+  })),
+  label: PropTypes.string,
 };
 
 // Renders Line Chart
@@ -115,8 +76,14 @@ const LineChartComponent = (props) => {
     </ResponsiveContainer>
   );
 };
+LineChartComponent.defaultProps = {
+  chartState: [],
+};
+LineChartComponent.propTypes = {
+  chartState: PropTypes.arrayOf(PropTypes.shape({})),
+};
 // Calculate % change of stock
-const Change = (stocks, current, range) => {
+const Change = ({ stocks, current, range }) => {
   let rangeStr = '';
   let diff;
   let percent;
@@ -169,8 +136,18 @@ const Change = (stocks, current, range) => {
   );
 };
 
-// Main Component
+Change.defaultProps = {
+  stocks: {},
+  current: '',
+  range: '',
+};
+Change.propTypes = {
+  stocks: PropTypes.shape({}),
+  current: PropTypes.string,
+  range: PropTypes.string,
+};
 
+// Main Component
 const Stock = ({ stocks, fetchStockChart, current }) => {
   const [chartState, setChartState] = useState([]);
   const [company, setCompany] = useState('');
@@ -184,11 +161,11 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
 
   useEffect(() => {
     if (stocks[current]) {
-      setChange(<Change stocks={stocks} range={range} current={current} />);
       setLogo(stocks[current].logo);
       setChartState(range === '1D' ? stocks[current].intraday : stocks[current].chart);
       setCompany(stocks[current].securityName);
       setPrice(stocks[current].latestPrice.toFixed(2));
+      setChange(<Change stocks={stocks} range={range} current={current} />);
     }
   }, [stocks, current, range]);
   // hangle chart toggle element
@@ -219,7 +196,7 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
         break;
     }
   };
-
+  const stock = stocks[current];
   return (
     <StockWrapper>
       <CompanyName>
@@ -251,7 +228,7 @@ const Stock = ({ stocks, fetchStockChart, current }) => {
           </RangeBtn>
         </RangeGroup>
       </ChartWrapper>
-      <About stock={stocks[current]} />
+      <About stock={stock} />
     </StockWrapper>
   );
 };
