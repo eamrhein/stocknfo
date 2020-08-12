@@ -44,11 +44,6 @@ const Desc = styled.p`
   line-height: 1.5;
   font-size: 10pt;
 `;
-const Tags = styled.div`
-  margin: 1rem;
-  display: flex;
-  justify-content: center;
-`;
 const Card = styled.div`
   line-height: 2;
   padding: 1rem;
@@ -71,6 +66,15 @@ const Tag = styled.span`
   font-weight: 700;
   margin: 0 12px 5px 0;
   padding: 8px;
+  :hover {
+    background-color: darkred;
+  }
+`;
+
+const Tags = styled.div`
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
 `;
 const NewsItem = styled.li`
   list-style-type: circle;
@@ -180,6 +184,7 @@ const Results = styled.div`
 const Result = styled.div`
   background-color: ${(props) => props.theme.colors.card};
   display: table-row;
+  cursor: pointer;
   margin: 1px;
   line-height: 1.5;
 `;
