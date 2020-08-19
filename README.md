@@ -1,10 +1,22 @@
-# Stock Reasearch
-Search and research information on stocks
-
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/14c522e8e3834379b863b257c272172a)](https://www.codacy.com/manual/eamrhein/stockresearch?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=eamrhein/Mock-Portfolio&amp;utm_campaign=Badge_Grade)
 ![stockresearch](https://user-images.githubusercontent.com/1903468/72707649-c6918900-3b15-11ea-969e-d6aaf87557da.png)
+# StockNfo
+A Simple Stock Market Lookup Tool, built using React.
+### Live Site: https://stocknfo.ericamrhein.com/
+![Welcome](/readme_media/Welcome.png)
+
+StockNFO is a simple to reasearch tool that allows users to look up and check the price history of stocks on the US stock exchanges. Users can view stock price data, Checkout stock news and see important details about the Stock
+
+## Key Features
++ Stock Search
+  + look up a stock by a symbol or by the company name.
++ Interactive Chart
+  + Look Up Long Term or Short Term price information
++ News and Stock Information
 
 ## Technologies 
-### + Frontend Components: React, Rechart 
-### + Frontend State: Redux
+ + React
+ + Rechart.js (a React chart library)
+ + Redux (State Managment)
+
