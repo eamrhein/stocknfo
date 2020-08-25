@@ -14,8 +14,8 @@ const ResultsComponent = ({
     return (
       <Results>
         <SearchHeading>
-          <Label>Symbol</Label>
-          <Label>Name</Label>
+          <Label>Symbol:</Label>
+          <Label>Name:</Label>
         </SearchHeading>
         {filterStocks(allStocks, input).map((stock, i) => (
           <Result
