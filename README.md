@@ -3,7 +3,7 @@
 
 # StockNfo
 A Simple Stock Market Lookup Tool, built using React.
-### Live Site: https://stocknfo.ericamrhein.com/
+### Live Site: stocknfo.netlify.app
 ![Welcome](/readme_media/Welcome.png)
 
 StockNFO is a simple to reasearch tool that allows users to look up and check the price history of stocks on the US stock exchanges. Users can view stock price data, Checkout stock news and see important details about the Stock
